@@ -76,14 +76,14 @@ def BuildGraphHist(img,Color):
     plt.subplot(133),plt.bar(lt,CF,color = Color),plt.title('CF')
     plt.xlabel("intensity"),plt.ylabel("pixels"),plt.xlim(0,255)
     plt.show()
-def Compare(img):
+def Compare_Equa(img):
     img1 = EqualizeHistogram(img)
     img2 = cv.equalizeHist(img)
     x,y = img.shape
     acr = [0]*(x*y)
     for i in range(0,x):
         for k in range(0,y):
-            acr[i+k] = int(img1[i,k]) - int(img2[i,k])
+            acr[i+k] = abs(int(img1[i,k]) - int(img2[i,k]))
         
     a = 1 - sum(acr)/(x*y)
     return a
@@ -107,12 +107,12 @@ def MedFilter(img,d):
                         lst.append(img[i-n,k-m])
             img1[i,k] = take_med(lst)
     return img1
-def Compare(img1,img2):
+def Compare_Filter(img1,img2):
     x,y = img1.shape
     acr = [0]*(x*y)
     for i in range(0,x):
         for k in range(0,y):
-            acr[i+k] = int(img1[i,k]) - int(img2[i,k])
+            acr[i+k] = abs(int(img1[i,k]) - int(img2[i,k]))
         
     a = 1 - sum(acr)/(x*y)
     return a
